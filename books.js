@@ -20,17 +20,24 @@ closeButton.addEventListener("click", (event) => {
   dialog.close();
 });
 
-addNewBook.addEventListener("click", (event)=>{
-  event.preventDefault()
-  const newTitle = document.querySelector("#newTitle")
-  const newAuthor = document.querySelector("#newAuthor")
-  const newPageNum = document.querySelector("#newPageNum")
-  console.log(newTitle.value)
-  const newBook = new Book(newTitle.value, newAuthor.value, parseInt(newPageNum.value))
-  addBookToLibrary(newBook)
-  newBookForm.reset()
-  dialog.close()
-})
+addNewBook.addEventListener("click", (event) => {
+  event.preventDefault(); // Prevent default form submission
+
+  const newTitle = document.querySelector("#newTitle").value.trim();
+  const newAuthor = document.querySelector("#newAuthor").value.trim();
+  const newPageNum = document.querySelector("#newPageNum").value.trim();
+
+  // Validate fields
+  if (!newTitle || !newAuthor || !newPageNum) {
+    alert("All fields must be filled out.");
+    return; // Exit the function if any field is empty
+  }
+
+  const newBook = new Book(newTitle, newAuthor, parseInt(newPageNum));
+  addBookToLibrary(newBook);
+  newBookForm.reset();
+  dialog.close();
+});
 
 
 
@@ -89,5 +96,3 @@ function Book(title, author, pages) {
 
   addBookToLibrary(goodByeEri)
   addBookToLibrary(dune)
-
- 
